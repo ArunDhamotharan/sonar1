@@ -1,1 +1,21 @@
+name : "sonar_scan"
+on:
+  workflow_dispatch:
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Scan
+        uses: sonasource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+              -Dsonar.organization=Centillion
+              -Dsonar.projectKey=sonar1
+             
